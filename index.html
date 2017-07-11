@@ -1,1 +1,119 @@
-Hello world
+<!DOCTYPE html>
+<html>
+<head>
+    <title>anshi's site</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <!--<style>
+
+
+
+
+
+    </style>-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Gotham Rounded A", "Gotham Rounded B", Helvetica, Arial, sans-serif;
+        }
+
+        html, body {
+            min-height: 100%;
+        }
+
+        .introduce {
+            font-size: 24px;
+        }
+
+        #ball {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100vw;
+        }
+
+        header {
+            height: 50vh;
+            background-color: #00bcd4;
+            overflow: hidden;
+        }
+
+        .title-btm, .title-top {
+            font-size: 100px;
+            top: 38vh;
+            left: 50%;
+            margin-left: -125px;
+        }
+
+        .title-btm {
+            position: absolute;
+            color: #00bcd4;
+        }
+
+        .title-top {
+            position: relative;
+            color: #fff;
+
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div class="title-btm">Anshi</div>
+<header>
+    <div class="title-top">Anshi</div>
+</header>
+
+<canvas id="ball" height="400" width="300">
+
+</canvas>
+
+</body>
+
+<script>
+  var canvas = document.getElementById('ball'),
+	  ctx = canvas.getContext("2d");
+  var raf;
+  const ball = {
+	x: 150,
+	y: 100,
+	vx: 0,
+	vy: 1,
+	radius: 35,
+	color: "#00bcd4",
+	draw: function () {
+	  ctx.beginPath();
+	  ctx.fillStyle = this.color;
+	  ctx.arc(this.x, this.y, 35, 0, Math.PI * 2, false);
+	  ctx.stroke();
+	  ctx.closePath();
+	}
+  };
+
+  function draw() {
+	horizonVery();
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ball.draw();
+	ball.vy += .25;
+	ball.x += ball.vx;
+	ball.y += ball.vy;
+	raf = window.requestAnimationFrame(draw)
+  }
+  function horizonVery() {
+	if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
+	  ball.vy = -ball.vy;
+	}
+  }
+  canvas.addEventListener('mouseover', function (e) {
+	raf = window.requestAnimationFrame(draw);
+  });
+
+  canvas.addEventListener("mouseout", function (e) {
+	window.cancelAnimationFrame(raf);
+  });
+  ball.draw();
+</script>
+</html>
